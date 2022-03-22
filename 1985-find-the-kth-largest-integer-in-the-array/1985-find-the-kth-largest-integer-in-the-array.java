@@ -6,12 +6,7 @@ class Solution {
             {
                 if(a.length()!=b.length())
                     return b.length()-a.length();
-                for(int i=0;i<a.length();i++)
-                {
-                    if(a.charAt(i)!=b.charAt(i))
-                        return b.charAt(i)-a.charAt(i);
-                }
-                return 0;
+                return b.compareTo(a);
             }
         });
         return nums[k-1];
