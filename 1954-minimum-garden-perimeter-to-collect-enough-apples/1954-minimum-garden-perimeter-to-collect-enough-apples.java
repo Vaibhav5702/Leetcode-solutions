@@ -1,6 +1,6 @@
 class Solution {
     public long minimumPerimeter(long neededApples) {
-        long low=1,high=62996;
+        long low=1,high=1000000;
         while(low<high)
         {
             long mid=(low+high)/2;
