@@ -1,6 +1,6 @@
 class Solution {
     public int minimumSize(int[] nums, int maxOperations) {
-        int low=0,high=0;
+        int low=1,high=1;
         for(int num:nums)
         {
             high=Math.max(high,num);
@@ -22,7 +22,9 @@ class Solution {
         int count=0;
         for(int num:nums)
         {
-            count+=(int)Math.ceil((double)num/mid)-1;
+            count+=num/mid;
+            if(num%mid==0)
+                count--;
             if(count>maxOperations)
                 return false;
         }
