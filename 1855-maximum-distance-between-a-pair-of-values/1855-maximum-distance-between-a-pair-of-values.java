@@ -16,6 +16,8 @@ class Solution {
                 else
                     high=mid-1;
             }
+            if(prev==nums2.length-1)
+                break;
         }
         return max;
     }
