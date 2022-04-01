@@ -25,9 +25,7 @@ class Solution {
             count+=num/mid;
             if(num%mid==0)
                 count--;
-            if(count>maxOperations)
-                return false;
         }
-        return true;
+        return count<=maxOperations;
     }
 }
