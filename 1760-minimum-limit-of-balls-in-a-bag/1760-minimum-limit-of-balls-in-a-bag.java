@@ -22,9 +22,7 @@ class Solution {
         int count=0;
         for(int num:nums)
         {
-            count+=num/mid;
-            if(num%mid==0)
-                count--;
+            count+=(num-1)/mid;
         }
         return count<=maxOperations;
     }
