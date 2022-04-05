@@ -6,13 +6,10 @@ class Solution {
         {
             if(nums[i]<=prev)
             {
-                prev++;
-                count+=prev-nums[i];
+                count+=prev+1-nums[i];
+                nums[i]=prev+1;
             }
-            else
-            {
-                prev=nums[i];
-            }
+            prev=nums[i];
         }
         return count;
     }
