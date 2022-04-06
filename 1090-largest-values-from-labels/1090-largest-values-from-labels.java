@@ -7,15 +7,15 @@ class Solution {
             arr[i][1]=labels[i];
         }
         Arrays.sort(arr,(a,b)->b[0]-a[0]);
-        Map<Integer,Integer> map=new HashMap();
+        int count[]=new int[20001];
         int score=0;
         for(int a[]:arr)
         {
-            if(map.containsKey(a[1])&&map.get(a[1])==useLimit)
+            if(count[a[1]]==useLimit)
                 continue;
             score+=a[0];
             numWanted--;
-            map.put(a[1],map.getOrDefault(a[1],0)+1);
+            count[a[1]]++;
             if(numWanted==0)
                 return score;
         }
