@@ -4,30 +4,30 @@ class Solution {
     public List<Integer> circularPermutation(int n, int start) {
         size=(int)Math.pow(2,n);
         boolean[] visited=new boolean[size];
-        List<Integer> list=new ArrayList();
+        int ans[]=new int[size];
         visited[start]=true;
-        list.add(start);
-        generate(list,visited);
-        return list;
+        ans[0]=start;
+        generate(1,ans,visited);
+        return IntStream.of(ans).boxed().collect(Collectors.toList());
     }
-    public void generate(List<Integer> list,boolean[] visited)
+    public void generate(int index,int[] ans,boolean[] visited)
     {
-        if(list.size()==size)
+        if(index==size)
         {
             flag=true;
             return;
         }
         for(int i=1;i<size;i*=2)
         {
-            int val=list.get(list.size()-1)^i;
+            int val=ans[index-1]^i;
             if(!visited[val])
             {
-                list.add(val);
+                ans[index]=val;
                 visited[val]=true;
-                generate(list,visited);
+                generate(index+1,ans,visited);
                 if(flag)
                     return;
-                list.remove(list.size()-1);
+                ans[index]=0;
                 visited[val]=false;
             }
         }
