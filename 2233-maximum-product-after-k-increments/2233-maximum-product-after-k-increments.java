@@ -1,27 +1,24 @@
 class Solution {
     public int maximumProduct(int[] nums, int k) {
-        if(nums.length==1)
-        {
-            return nums[0]+k;
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        long result = 1;
+        int mod = 1_000_000_007;
+        int current;
+        
+        for (int num : nums)
+            queue.add(num);
+        
+        while (k-- > 0){
+            current = queue.poll();
+            ++current;
+            queue.add(current);
         }
-        PriorityQueue<Integer> pq=new PriorityQueue();
-        for(int num:nums)
-        {
-            pq.offer(num);
+        
+        for (int num : queue){
+            result *= num;
+            result %= mod;
         }
-        while(k>0)
-        {
-            int val=pq.poll();
-            int incr=Math.min(k,pq.peek()+1-val);
-            val+=incr;
-            k-=incr;
-            pq.offer(val);
-        }
-        long pro=1;
-        while(!pq.isEmpty())
-        {
-            pro=(pro*pq.poll())%1000000007;
-        }
-        return (int) pro;
+        
+        return (int) result;
     }
 }
