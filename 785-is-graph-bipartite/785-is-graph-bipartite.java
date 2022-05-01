@@ -1,27 +1,39 @@
 class Solution {
     public boolean isBipartite(int[][] graph) {
-        int len = graph.length;
-        int[] colors = new int[len];
-        
-        for (int i = 0; i < len; i++) {
-            if (colors[i] != 0) continue;
-            Queue<Integer> queue = new LinkedList<>();
-            queue.offer(i);
-            colors[i] = 1;   // Blue: 1; Red: -1.
-            
-            while (!queue.isEmpty()) {
-                int cur = queue.poll();
-                for (int next : graph[cur]) {
-                    if (colors[next] == 0) {          // If this node hasn't been colored;
-                        colors[next] = -colors[cur];  // Color it with a different color;
-                        queue.offer(next);
-                    } else if (colors[next] != -colors[cur]) {   // If it is colored and its color is different, return false;
-                        return false;
-                    }
-                }
+        int colour[]=new int[graph.length];
+        for(int i=0;i<colour.length;i++)
+        {
+            colour[i]=-1;
+        }
+        for(int i=0;i<graph.length;i++)
+        {
+            if(colour[i]==-1)
+            {
+                if(!bfs(i,graph,colour))
+                    return false;
             }
         }
-        
+        return true;
+    }
+    public boolean bfs(int s,int[][] graph,int[] colour)
+    {
+        Queue<Integer> queue=new LinkedList();
+        queue.add(s);
+        colour[s]=0;
+        while(!queue.isEmpty())
+        {
+            int node=queue.poll();
+            for(int a:graph[node])
+            {
+                if(colour[a]==-1)
+                {
+                    colour[a]=1-colour[node];
+                    queue.offer(a);
+                }
+                else if(colour[a]==colour[node])
+                    return false;
+            }
+        }
         return true;
     }
 }
