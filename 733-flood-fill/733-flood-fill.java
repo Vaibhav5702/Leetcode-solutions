@@ -1,19 +1,26 @@
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        int org=image[sr][sc];
-        boolean[][] visited=new boolean[image.length][image[0].length];
-        fillColor(image,sr,sc,newColor,org,visited);
+        
+        if(image[sr][sc] == newColor)
+            return image;
+        
+        int color = image[sr][sc] ; 
+        fill(image ,color, sr , sc , newColor);
+        
         return image;
     }
-    public void fillColor(int[][] image,int sr,int sc,int newColor,int org,boolean[][] vis)
+    
+    private void fill(int[][] image, int color , int sr, int sc, int newColor)
     {
-        if(sr<0||sr==image.length||sc<0||sc==image[0].length||image[sr][sc]!=org||vis[sr][sc])
-            return;
-        image[sr][sc]=newColor;
-        vis[sr][sc]=true;
-        fillColor(image,sr+1,sc,newColor,org,vis);
-        fillColor(image,sr-1,sc,newColor,org,vis);
-        fillColor(image,sr,sc+1,newColor,org,vis);
-        fillColor(image,sr,sc-1,newColor,org,vis);
+        if(sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length || image[sr][sc] != color)
+            return ;
+        
+        image[sr][sc] = newColor;
+        
+        fill(image ,color, sr+1 , sc , newColor);
+        fill(image ,color, sr-1 , sc , newColor);
+        fill(image , color,sr , sc+1 , newColor);
+        fill(image , color,sr , sc-1, newColor);
+        
     }
 }
