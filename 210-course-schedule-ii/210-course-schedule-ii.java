@@ -8,8 +8,8 @@ class Solution {
         }
         for(int[] pre:prerequisites)
         {
-            list.get(pre[1]).add(pre[0]);
-            indegree[pre[0]]++;
+            list.get(pre[0]).add(pre[1]);
+            indegree[pre[1]]++;
         }
         Queue<Integer> queue=new LinkedList();
         for(int i=0;i<numCourses;i++)
@@ -18,11 +18,11 @@ class Solution {
                 queue.offer(i);
         }
         int[] arr=new int[numCourses];
-        int index=0;
+        int index=numCourses-1;
         while(!queue.isEmpty())
         {
             int node=queue.poll();
-            arr[index++]=node;
+            arr[index--]=node;
             for(int i:list.get(node))
             {
                 indegree[i]--;
@@ -30,6 +30,6 @@ class Solution {
                     queue.offer(i);
             }
         }
-        return index!=numCourses?new int[]{}:arr;
+        return index>0?new int[]{}:arr;
     }
 }
