@@ -1,11 +1,10 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        boolean[] vis=new boolean[graph.length];
         int[] safe=new int[graph.length];
         for(int i=0;i<graph.length;i++)
         {
             if(safe[i]==0)
-                safe[i]=dfs(i,graph,vis,safe)?1:-1;
+                safe[i]=dfs(i,graph,safe)?1:-1;
             
         }
         List<Integer> list=new ArrayList();
@@ -16,23 +15,21 @@ class Solution {
         }
         return list;
     }
-    public boolean dfs(int s,int[][] graph,boolean[] vis,int[] safe)
+    public boolean dfs(int s,int[][] graph,int[] safe)
     {
-        if(vis[s])
-            return false;
-        vis[s]=true;
+        if(safe[s]!=0)
+            return safe[s]==1;
+        safe[s]=-1;
         for(int node:graph[s])
         {
             if(safe[node]==1)
                 continue;
-            if(safe[node]==-1||!dfs(node,graph,vis,safe))
+            if(safe[node]==-1||!dfs(node,graph,safe))
             {
-                safe[node]=-1;
                 return false;
             }
         }
         safe[s]=1;
-        vis[s]=false;
         return true;
     }
 }
