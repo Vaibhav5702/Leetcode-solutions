@@ -6,15 +6,11 @@ class MyStack {
     }
     
     public void push(int x) {
-        Queue<Integer> q2=new LinkedList();
-        while(!q1.isEmpty())
-        {
-            q2.offer(q1.poll());
-        }
+        int size=q1.size();
         q1.offer(x);
-        while(!q2.isEmpty())
+        for(int i=0;i<size;i++)
         {
-            q1.offer(q2.poll());
+            q1.offer(q1.poll());
         }
     }
     
