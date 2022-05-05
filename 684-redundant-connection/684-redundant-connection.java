@@ -3,7 +3,6 @@ class Solution {
     int[] rank;
     public int[] findRedundantConnection(int[][] edges) {
         parent=new int[edges.length+1];
-        rank=new int[edges.length+1];
         for(int i=0;i<parent.length;i++)
         {
             parent[i]=i;
@@ -27,18 +26,6 @@ class Solution {
     {
         u=findPar(u);
         v=findPar(v);
-        if(rank[u]==rank[v])
-        {
-            parent[v]=u;
-            rank[u]++;
-        }
-        else if(rank[u]>rank[v])
-        {
-            parent[v]=u;
-        }
-        else
-        {
-            parent[u]=v;
-        }
+        parent[u]=v;
     }
 }
