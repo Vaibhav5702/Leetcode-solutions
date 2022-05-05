@@ -12,7 +12,7 @@ class Solution {
         {
             if(findPar(edge[0])==findPar(edge[1]))
                 return edge;
-            union(findPar(edge[0]),findPar(edge[1]));
+            union(edge[0],edge[1]);
         }
         return new int[]{};
     }
@@ -25,6 +25,8 @@ class Solution {
     }
     public void union(int u, int v)
     {
+        u=findPar(u);
+        v=findPar(v);
         if(rank[u]==rank[v])
         {
             parent[v]=u;
