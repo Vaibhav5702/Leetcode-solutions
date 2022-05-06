@@ -16,18 +16,14 @@ class Solution {
             char ch=s.charAt(i);
             if(!stack.isEmpty()&&ch==stack.peek().c)
             {
-                Pair p=stack.pop();
-                p.val++;
-                p.val%=k;
-                if(p.val!=0)
-                {
-                    stack.push(new Pair(ch,p.val));
-                }
+                stack.peek().val++;
             }
             else
             {
                 stack.push(new Pair(ch,1));
             }
+            if(stack.peek().val==k)
+                stack.pop();
         }
         StringBuilder sb=new StringBuilder();
         while(!stack.isEmpty())
