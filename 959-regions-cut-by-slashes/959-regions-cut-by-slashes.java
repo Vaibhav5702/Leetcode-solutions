@@ -34,7 +34,7 @@ class Solution {
         v=findPar(v);
         if(u==v)
             region++;
-        parent[u]=v;
+        parent[v]=u;
     }
     public int findPar(int node)
     {
