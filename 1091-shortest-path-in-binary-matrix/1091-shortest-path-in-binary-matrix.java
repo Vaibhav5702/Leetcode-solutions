@@ -1,11 +1,10 @@
 class Solution {
     public class Pair{
-        int row,col,val;
-        Pair(int row,int col,int val)
+        int row,col;
+        Pair(int row,int col)
         {
             this.row=row;
             this.col=col;
-            this.val=val;
         }
     }
     public int shortestPathBinaryMatrix(int[][] grid) {
@@ -21,16 +20,23 @@ class Solution {
         conn[5]=new int[]{1,0};
         conn[6]=new int[]{1,-1};
         conn[7]=new int[]{0,-1};
+        int[][] path=new int[n][n];
         boolean[][] vis=new boolean[n][n];
-        PriorityQueue<Pair> queue=new PriorityQueue<>((a,b)->(a.val-b.val));
-        queue.offer(new Pair(0,0,1));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                path[i][j]=100000;
+            }
+        }
+        path[0][0]=1;
+        Queue<Pair> queue=new LinkedList();
+        queue.offer(new Pair(0,0));
         while(!queue.isEmpty())
         {
             Pair p=queue.poll();
             if(vis[p.row][p.col])
                 continue;
-            if(p.row==n-1&&p.col==n-1)
-                return p.val;
             vis[p.row][p.col]=true;
             for(int[] con:conn)
             {
@@ -38,10 +44,11 @@ class Solution {
                 int col=p.col+con[1];
                 if(row>=0&&row<n&&col>=0&&col<n&&grid[row][col]!=1)
                 {
-                    queue.offer(new Pair(row,col,p.val+1));
+                    path[row][col]=Math.min(path[row][col],path[p.row][p.col]+1);
+                    queue.offer(new Pair(row,col));
                 }
             }
         }
-        return -1;
+        return path[n-1][n-1]==100000?-1:path[n-1][n-1];
     }
 }
