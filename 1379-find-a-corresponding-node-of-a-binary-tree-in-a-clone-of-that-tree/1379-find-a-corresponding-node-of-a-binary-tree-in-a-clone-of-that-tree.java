@@ -21,7 +21,7 @@ class Solution {
             {
                 TreeNode node1=org.poll();
                 TreeNode node2=cl.poll();
-                if(target.val==node1.val)
+                if(target==node1)
                     return node2;
                 if(node1.left!=null)
                 {
