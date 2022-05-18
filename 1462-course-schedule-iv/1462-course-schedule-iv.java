@@ -2,11 +2,10 @@ class Solution {
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
         int[] outdegree=new int[numCourses];
         List<List<Integer>> adj=new ArrayList();
-        List<Set<Integer>> list=new ArrayList();
+        boolean[][] set=new boolean[numCourses][numCourses];
         for(int i=0;i<numCourses;i++)
         {
             adj.add(new ArrayList());
-            list.add(new HashSet());
         }
         for(int[] prerequisite:prerequisites)
         {
@@ -22,11 +21,14 @@ class Solution {
         while(!queue.isEmpty())
         {
             int node=queue.poll();
-            Set<Integer> set=list.get(node);
             for(int i:adj.get(node))
             {
-                list.get(i).add(node);
-                list.get(i).addAll(set);
+                set[i][node]=true;
+                for(int j=0;j<numCourses;j++)
+                {
+                    if(set[node][j])
+                        set[i][j]=true;
+                }
                 outdegree[i]--;
                 if(outdegree[i]==0)
                     queue.offer(i);
@@ -35,7 +37,7 @@ class Solution {
         List<Boolean> ans=new ArrayList();
         for(int[] query:queries)
         {
-            if(list.get(query[0]).contains(query[1]))
+            if(set[query[0]][query[1]])
                 ans.add(true);
             else
                 ans.add(false);
