@@ -1,29 +1,28 @@
 class Solution {
     public int maximalNetworkRank(int n, int[][] roads) {
-        List<Set<Integer>> list=new ArrayList();
-        for(int i=0;i<n;i++)
-        {
-            list.add(new HashSet());
-        }
+        boolean[][] set=new boolean[n][n];
+        int[] degree=new int[n];
         for(int[] road:roads)
         {
-            list.get(road[0]).add(road[1]);
-            list.get(road[1]).add(road[0]);
+            set[road[0]][road[1]]=true;
+            set[road[1]][road[0]]=true;
+            degree[road[0]]++;
+            degree[road[1]]++;
         }
         int max=0;
         for(int i=0;i<n;i++)
         {
             for(int j=i+1;j<n;j++)
             {
-                max=Math.max(max,check(i,j,list));
+                max=Math.max(max,check(i,j,set,degree));
             }
         }
         return max;
     }
-    public int check(int u,int v,List<Set<Integer>> list)
+    public int check(int u,int v,boolean[][] set,int[] degree)
     {
-        int rank=list.get(u).size()+list.get(v).size();
-        if(list.get(u).contains(v))
+        int rank=degree[u]+degree[v];
+        if(set[u][v])
         {
             rank--;
         }
