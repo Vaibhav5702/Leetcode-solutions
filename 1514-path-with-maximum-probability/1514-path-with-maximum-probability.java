@@ -35,6 +35,8 @@ class Solution {
         while(!pq.isEmpty())
         {
             Pair p=pq.poll();
+            if(p.node==end)
+                return p.val;
             for(Pair pr:adj.get(p.node))
             {
                 if(path[pr.node]<p.val*pr.val)
