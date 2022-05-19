@@ -19,6 +19,10 @@ class Trie {
         {
             flag=true;
         }
+        public boolean isEnd()
+        {
+            return flag;
+        }
     }
     Node root;
     public Trie() {
@@ -44,7 +48,7 @@ class Trie {
                 return false;
             node=node.getKey(ch);
         }
-        return node.flag;
+        return node.isEnd();
     }
     
     public boolean startsWith(String prefix) {
