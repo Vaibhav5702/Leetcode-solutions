@@ -41,14 +41,14 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
-        return getResult(word,0,root);
+        return getResult(word.toCharArray(),0,root);
     }
-    public boolean getResult(String word,int index,TrieNode temp)
+    public boolean getResult(char[] word,int index,TrieNode temp)
     {
         TrieNode node=temp;
-        for(int j=index;j<word.length();j++)
+        for(int j=index;j<word.length;j++)
         {
-            char ch=word.charAt(j);
+            char ch=word[j];
             if(ch!='.'&&!node.containsKey(ch))
                 return false;
             if(ch=='.')
