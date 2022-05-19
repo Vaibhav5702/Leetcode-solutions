@@ -41,12 +41,12 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
-        return getResult(word,root);
+        return getResult(word,0,root);
     }
-    public boolean getResult(String word,TrieNode temp)
+    public boolean getResult(String word,int index,TrieNode temp)
     {
         TrieNode node=temp;
-        for(int j=0;j<word.length();j++)
+        for(int j=index;j<word.length();j++)
         {
             char ch=word.charAt(j);
             if(ch!='.'&&!node.containsKey(ch))
@@ -57,7 +57,7 @@ class WordDictionary {
                 for(char i='a';i<='z';i++)
                 {
                     if(node.containsKey(i))
-                        ans=ans||getResult(word.substring(j+1),node.get(i));
+                        ans=ans||getResult(word,j+1,node.get(i));
                 }
                 return ans;
             }
