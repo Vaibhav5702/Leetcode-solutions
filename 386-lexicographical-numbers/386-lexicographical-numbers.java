@@ -31,7 +31,7 @@ class Solution {
             insert(String.valueOf(i));
         }
         List<Integer> list=new ArrayList();
-        addNum(root,new StringBuilder(),list);
+        addNum(root,0,list);
         return list;
     }
     public void insert(String word) {
@@ -44,21 +44,21 @@ class Solution {
         }
         node.setEnd();
     }
-    public void addNum(Node node,StringBuilder sb,List<Integer> list)
+    public void addNum(Node node,int val,List<Integer> list)
     {
         if(node==null)
             return;
         if(node.isEnd())
         {
-            list.add(Integer.parseInt(sb.toString()));
+            list.add(val);
         }
         for(int i=0;i<10;i++)
         {
             if(node.containsKey(i))
             {
-                sb.append(i);
-                addNum(node.getKey(i),sb,list);
-                sb.setLength(sb.length()-1);
+                val=val*10+i;
+                addNum(node.getKey(i),val,list);
+                val/=10;
             }
         }
     }
