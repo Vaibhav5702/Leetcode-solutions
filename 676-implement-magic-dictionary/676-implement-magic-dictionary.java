@@ -46,18 +46,15 @@ class MagicDictionary {
         for(int i=0;i<word.length();i++)
         {
             char ch=word.charAt(i);
-            boolean ans=false;
             for(char j='a';j<='z';j++)
             {
                 if(ch==j)
                 {
                     continue;
                 }
-                if(node.containsKey(j))
-                    ans=ans||check(word,i+1,node.get(j));
+                if(node.containsKey(j)&&check(word,i+1,node.get(j)))
+                    return true;
             }
-            if(ans)
-                return true;
             node=node.get(ch);
             if(node==null)
                 return false;
