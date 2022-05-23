@@ -48,13 +48,14 @@ class MapSum {
     }
     public int dfs(TrieNode node)
     {
-        int sum=0;
-        for(char i='a';i<='z';i++)
+        if(node==null)
+            return 0;
+        int sum=node.val;
+        for(TrieNode t:node.links)
         {
-            if(node.containsKey(i))
-                sum+=dfs(node.get(i));
+            sum+=dfs(t);
         }
-        return sum+node.val;
+        return sum;
     }
 }
 
