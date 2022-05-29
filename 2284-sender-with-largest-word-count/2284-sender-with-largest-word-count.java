@@ -10,8 +10,9 @@ class Solution {
                 if(ch==' ')
                     space++;
             }
-            map.put(senders[i],map.getOrDefault(senders[i],0)+space+1);
-            max=Math.max(max,map.get(senders[i]));
+            int words=map.getOrDefault(senders[i],0)+space+1;
+            map.put(senders[i],words);
+            max=Math.max(max,words);
         }
         List<String> list=new ArrayList();
         for(Map.Entry e:map.entrySet())
