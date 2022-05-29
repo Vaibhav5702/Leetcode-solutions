@@ -14,13 +14,15 @@ class Solution {
             map.put(senders[i],words);
             max=Math.max(max,words);
         }
-        List<String> list=new ArrayList();
+        String res="";
         for(Map.Entry e:map.entrySet())
         {
-            if((int)e.getValue()==max)
-                list.add(e.getKey().toString());
+            String key=e.getKey().toString();
+            if((int)e.getValue()==max&&key.compareTo(res)>0)
+            {
+                res=key;
+            }
         }
-        Collections.sort(list,Collections.reverseOrder());
-        return list.get(0);
+        return res;
     }
 }
