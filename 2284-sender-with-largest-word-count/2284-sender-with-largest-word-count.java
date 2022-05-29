@@ -12,13 +12,18 @@ class Solution {
             }
             int words=map.getOrDefault(senders[i],0)+space+1;
             map.put(senders[i],words);
-            max=Math.max(max,words);
         }
         String res="";
         for(Map.Entry e:map.entrySet())
         {
             String key=e.getKey().toString();
-            if((int)e.getValue()==max&&key.compareTo(res)>0)
+            int val=(int)e.getValue();
+            if(val>max)
+            {
+                max=val;
+                res=key;
+            }
+            else if(val==max&&key.compareTo(res)>0)
             {
                 res=key;
             }
