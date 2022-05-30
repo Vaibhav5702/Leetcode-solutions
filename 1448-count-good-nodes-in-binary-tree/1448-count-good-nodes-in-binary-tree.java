@@ -23,9 +23,6 @@ class Solution {
             return 0;
         max=Math.max(max,root.val);
         int sum=dfs(root.left,max)+dfs(root.right,max);
-        if(root.val==max)
-            return 1+sum;
-        else
-            return sum;
+        return sum+(root.val==max?1:0);
     }
 }
