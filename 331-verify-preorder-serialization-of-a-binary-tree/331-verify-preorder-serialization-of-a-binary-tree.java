@@ -1,31 +1,31 @@
 class Solution {
     public boolean isValidSerialization(String preorder) {
-        Stack<String> stack=new Stack();
+        Stack<Integer> stack=new Stack();
         String[] arr=preorder.split(",");
         for(int i=0;i<arr.length;i++)
         {
-            stack.push(arr[i]);
             if(arr[i].equals("#"))
             {
+                stack.push(-1);
                 while(stack.size()>=3)
                 {
                     stack.pop();
-                    String b=stack.pop();
-                    if(!b.equals("#"))
+                    int b=stack.pop();
+                    if(b!=-1)
                     {
                         stack.push(b);
-                        stack.push("#");
+                        stack.push(-1);
                         break;
                     }
-                    else if(stack.pop().equals("#"))
+                    else if(stack.pop()==-1)
                         return false;
                     else
-                        stack.push("#");
-                    
-                    
+                        stack.push(-1);
                 }
             }
+            else
+                stack.push(Integer.parseInt(arr[i]));
         }
-        return stack.size()==1&&stack.pop().equals("#");
+        return stack.size()==1&&stack.pop()==-1;
     }
 }
