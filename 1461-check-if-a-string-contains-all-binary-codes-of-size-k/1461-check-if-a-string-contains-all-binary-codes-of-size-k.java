@@ -5,6 +5,6 @@ class Solution {
         {
             set.add(s.substring(i,i+k));
         }
-        return (int)(Math.pow(2,k))==set.size();
+        return 1<<k==set.size();
     }
 }
