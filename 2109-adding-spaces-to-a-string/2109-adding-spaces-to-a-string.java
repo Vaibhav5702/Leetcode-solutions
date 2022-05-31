@@ -5,10 +5,15 @@ class Solution {
         StringBuilder sb=new StringBuilder();
         for(int i=0;i<s.length();i++)
         {
-            if(j!=spaces.length&&i==spaces[j])
+            if(i==spaces[j])
             {
                 sb.append(" ");
                 j++;
+                if(j==spaces.length){
+                    sb.append(s.substring(i));
+                    break;
+                }
+                
             }
             sb.append(s.charAt(i));
         }
