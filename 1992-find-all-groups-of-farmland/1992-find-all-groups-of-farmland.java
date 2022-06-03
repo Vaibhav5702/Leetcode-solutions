@@ -16,9 +16,10 @@ class Solution {
                     }
                     while(col<n&&land[i][col]==1)
                     {
+                        for(int k=i;k<row;k++)
+                            visited[k][col]=true;
                         col++;
                     }
-                    setVisited(i,j,row,col,visited);
                     list.add(new int[]{i,j,row-1,col-1});
                 }
             }
@@ -29,15 +30,5 @@ class Solution {
             ans[i]=list.get(i);
         }
         return ans;
-    }
-    public void setVisited(int sr, int sc,int er,int ec,boolean[][] vis)
-    {
-        for(int i=sr;i<er;i++)
-        {
-            for(int j=sc;j<ec;j++)
-            {
-                vis[i][j]=true;
-            }
-        }
     }
 }
