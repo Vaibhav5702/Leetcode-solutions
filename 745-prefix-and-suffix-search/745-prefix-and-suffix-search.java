@@ -2,23 +2,19 @@ class WordFilter {
 
     class TrieNode
     {
-        TrieNode[] node=new TrieNode[26];
+        TrieNode[] node=new TrieNode[256];
         int index=-1;
         public boolean containsKey(char ch)
         {
-            return node[ch-'a']!=null;
+            return node[ch]!=null;
         }
         public void put(char ch)
         {
-            node[ch-'a']=new TrieNode();
+            node[ch]=new TrieNode();
         }
         public TrieNode get(char ch)
         {
-            return node[ch-'a'];
-        }
-        public void setEnd(int idx)
-        {
-            index=idx;
+            return node[ch];
         }
     }
     TrieNode root;
@@ -26,43 +22,23 @@ class WordFilter {
         root=new TrieNode();
         for(int i=0;i<words.length;i++)
         {
-            insert(words[i],i);
+            for(int j=0;j<words[i].length();j++)
+            {
+                insert(words[i].substring(j)+"#"+words[i],i);
+            }
         }
     }
     
     public int f(String prefix, String suffix) {
         TrieNode node=root;
-        for(char ch:prefix.toCharArray())
+        String pre=suffix+"#"+prefix;
+        for(char ch:pre.toCharArray())
         {
             if(!node.containsKey(ch))
                 return -1;
             node=node.get(ch);
         }
-        StringBuilder sb=new StringBuilder();
-        sb.append(prefix);
-        return dfs(node,sb,suffix);
-    }
-    public int dfs(TrieNode node,StringBuilder sb,String suffix)
-    {
-        if(node.index!=-1)
-        {
-            if(sb.toString().endsWith(suffix))
-                return node.index;
-            else
-                return -1;
-        }
-            
-        int index=-1;
-        for(char ch='a';ch<='z';ch++)
-        {
-            if(node.containsKey(ch))
-            {
-                sb.append(ch);
-                index=Math.max(index,dfs(node.get(ch),sb,suffix));
-                sb.setLength(sb.length()-1);
-            }
-        }
-        return index;
+        return node.index;
     }
     public void insert(String word,int index)
     {
@@ -72,8 +48,8 @@ class WordFilter {
             if(!node.containsKey(ch))
                 node.put(ch);
             node=node.get(ch);
+            node.index=Math.max(node.index,index);
         }
-        node.setEnd(index);
     }
 }
 
