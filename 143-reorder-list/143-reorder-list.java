@@ -13,12 +13,12 @@ class Solution {
         if(head.next==null||head.next.next==null)
             return;
         ListNode slow=head,fast=head;
-        while(fast!=null&&fast.next!=null&&fast.next.next!=null)
+        while(fast!=null&&fast.next!=null)
         {
             slow=slow.next;
             fast=fast.next.next;
         }
-        ListNode temp=slow.next;
+        ListNode temp=fast==null?slow:slow.next;
         Stack<ListNode> stack=new Stack();
         while(temp!=null)
         {
@@ -32,11 +32,6 @@ class Solution {
             temp.next=stack.pop();
             temp=temp.next;
             temp.next=next;
-            temp=temp.next;
-        }
-        if(!stack.isEmpty())
-        {
-            temp.next=stack.pop();
             temp=temp.next;
         }
         temp.next=null;
