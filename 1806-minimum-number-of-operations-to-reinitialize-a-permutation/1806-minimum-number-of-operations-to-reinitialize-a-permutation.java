@@ -1,23 +1,15 @@
 class Solution {
     public int reinitializePermutation(int n) {
-        int[] perm=new int[n];
-        for(int i=0;i<n;i++)
-        {
-            perm[i]=i;
-        }
         int count=0;
-        do
+        int x=1;
+        while(count==0||x!=1)
         {
-            int[] arr=new int[n];
-            int i=0,j=n/2;
-            for(int k=0;k<n;k+=2)
-            {
-                arr[k]=perm[i++];
-                arr[k+1]=perm[j++];
-            }
+            if(x%2==0)
+                x=x/2;
+            else
+                x=n/2+(x-1)/2;
             count++;
-            perm=arr;
-        }while(perm[1]!=1);
+        }
         return count;
     }
 }
