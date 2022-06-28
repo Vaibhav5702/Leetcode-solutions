@@ -1,6 +1,6 @@
 class Solution {
     public int maxEqualRowsAfterFlips(int[][] matrix) {
-        Map<String,Integer> map=new HashMap();
+        Map<String,Integer> map=new HashMap<>();
         int max=0;
         for(int[] arr:matrix)
         {
