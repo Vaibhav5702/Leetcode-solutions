@@ -7,7 +7,7 @@ class Solution {
             {
                 if(i==j)
                     continue;
-                if(nums[i].length()+nums[j].length()==target.length()&& target.equals(nums[i]+nums[j]))
+                if( target.equals(nums[i]+nums[j]))
                     count++;
             }
         }
