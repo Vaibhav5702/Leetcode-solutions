@@ -1,78 +1,57 @@
-class UnionFind {
-    public int[] group;
-    public int[] rank;
-
-    public UnionFind(int size) {
-        group = new int[size];
-        rank = new int[size];
-        for (int i = 0; i < size; ++i) {
-            group[i] = i;
+class Solution {
+    class Pair
+    {
+        int i,j,dist;
+        Pair(int i, int j, int dist)
+        {
+            this.i=i;
+            this.j=j;
+            this.dist=dist;
         }
     }
-
-    public int find(int node) {
-        if (group[node] != node) {
-            group[node] = find(group[node]);
+    public int minCostConnectPoints(int[][] points) {
+        PriorityQueue<Pair> pq=new PriorityQueue<>((a,b)->a.dist-b.dist);
+        for(int i=0;i<points.length;i++)
+        {
+            for(int j=i+1;j<points.length;j++)
+            {
+                int distance=Math.abs(points[i][0]-points[j][0])+
+                    Math.abs(points[i][1]-points[j][1]);
+                pq.offer(new Pair(i,j,distance));
+            }
         }
-        return group[node];
+        int[] parent=new int[points.length];
+        for(int i=0;i<parent.length;i++)
+        {
+            parent[i]=i;
+        }
+        int count=0,sum=0;
+        while(!pq.isEmpty())
+        {
+            Pair p=pq.poll();
+            if(union(p.i,p.j,parent)){
+                
+                sum+=p.dist;
+                count++;
+            }
+            if(count==points.length-1)
+                break;
+        }
+        return sum;
     }
-
-    public boolean union(int node1, int node2) {
-        int group1 = find(node1);
-        int group2 = find(node2);
-        
-        // node1 and node2 already belong to same group.
-        if (group1 == group2) {
+    public boolean union(int i,int j,int[] parent){
+        i=find(i,parent);
+        j=find(j,parent);
+        if(i==j)
             return false;
-        }
-
-        if (rank[group1] > rank[group2]) {
-            group[group2] = group1;
-        } else if (rank[group1] < rank[group2]) {
-            group[group1] = group2;
-        } else {
-            group[group1] = group2;
-            rank[group2] += 1;
-        }
-
+        parent[i]=j;
         return true;
     }
-}
-
-class Solution {
-    public int minCostConnectPoints(int[][] points) {
-        int n = points.length;
-        ArrayList<int[]> allEdges = new ArrayList<>();
-        
-        // Storing all edges of our complete graph.
-        for (int currNext = 0; currNext < n; ++currNext) {
-            for (int nextNext = currNext + 1; nextNext < n; ++nextNext) {
-                int weight = Math.abs(points[currNext][0] - points[nextNext][0]) + 
-                             Math.abs(points[currNext][1] - points[nextNext][1]);
-                
-                int[] currEdge = {weight, currNext, nextNext};
-                allEdges.add(currEdge);
-            }
-        }
-        
-        // Sort all edges in increasing order.
-        Collections.sort(allEdges, (a, b) -> Integer.compare(a[0], b[0]));   
-        
-        UnionFind uf = new UnionFind(n);
-        int mstCost = 0;
-        int edgesUsed = 0;
-        
-        for (int i = 0; i < allEdges.size() && edgesUsed < n - 1; ++i) {
-            int node1 = allEdges.get(i)[1];
-            int node2 = allEdges.get(i)[2];
-            int weight = allEdges.get(i)[0];
-            
-            if (uf.union(node1, node2)) {
-                mstCost += weight;
-                edgesUsed++;
-            }
-        }
-        
-        return mstCost;
+    public int find(int i,int[] parent)
+    {
+        if(i==parent[i])
+            return i;
+        parent[i]=find(parent[i],parent);
+        return parent[i];
     }
 }
