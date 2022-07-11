@@ -3,12 +3,23 @@ class Solution {
         Arrays.sort(citations);
         if(citations[0]>=citations.length)
             return citations.length;
-        for(int i=citations.length-1;i>=1;i--)
+        int low=1,high=citations.length-1;
+        int ans=0;
+        while(low<=high)
         {
-            int t=citations.length-i;
-            if(citations[t]>=i&&citations[t-1]<=i)
-                return i;
+            int mid=(low+high)/2;
+            int t=citations.length-mid;
+            if(citations[t]>=mid)
+            {
+                if(citations[t-1]<=mid)
+                    ans=mid;
+                low=mid+1;
+            }
+            else
+            {
+                high=mid-1;
+            }
         }
-        return 0;
+        return ans;
     }
 }
