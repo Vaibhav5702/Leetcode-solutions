@@ -1,6 +1,6 @@
 class Solution {
     public boolean makesquare(int[] matchsticks) {
-        long sum=0;
+        int sum=0;
         for(int matchstick:matchsticks)
         {
             sum+=matchstick;
@@ -8,11 +8,11 @@ class Solution {
         
         if(sum%4!=0)
             return false;
-        long side=(sum/4);
+        int side=(sum/4);
         Arrays.sort(matchsticks);
         return check(matchsticks.length-1,0,0,0,0,side,matchsticks);
     }
-    public boolean check(int index,long sum1,long sum2,long sum3,long sum4,long side,int[] match)
+    public boolean check(int index,int sum1,int sum2,int sum3,int sum4,int side,int[] match)
     {
         if(sum1==side&&sum2==side&&sum3==side&&sum4==side)
             return true;
