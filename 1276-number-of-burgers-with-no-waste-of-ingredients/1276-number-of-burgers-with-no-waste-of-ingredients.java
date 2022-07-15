@@ -3,19 +3,15 @@ class Solution {
         List<Integer> list=new ArrayList<>();
         if(tomatoSlices%2!=0)
             return list;
-        if(2*cheeseSlices>tomatoSlices||4*cheeseSlices<tomatoSlices)
-            return list;
-        int j=0;
-        while(tomatoSlices>0&&cheeseSlices>0&&tomatoSlices!=cheeseSlices*2)
+        int low=2*cheeseSlices;
+        int high=4*cheeseSlices;
+        if(tomatoSlices>=low&&tomatoSlices<=high)
         {
-            j++;
-            tomatoSlices-=4;
-            cheeseSlices--;
-        }
-        if(tomatoSlices<0||cheeseSlices<0)
+            int j=(tomatoSlices-low)/2;
+            list.add(j);
+            list.add(cheeseSlices-j);
             return list;
-        list.add(j);
-        list.add(cheeseSlices);
+        }
         return list;
     }
 }
