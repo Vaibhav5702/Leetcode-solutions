@@ -26,14 +26,13 @@ class Solution {
         if(l>h)
             return null;
         TreeNode root=new TreeNode(pre[idx]);
-        int index=search(in,pre[idx++]);
+        int index=search(in,pre[idx++],l,h);
         root.left=createTree(l,index-1,pre,in);
         root.right=createTree(index+1,h,pre,in);
         return root;
     }
-    public int search(int arr[],int val)
+    public int search(int arr[],int val,int low, int high)
     {
-        int low=0,high=arr.length-1;
         while(low<=high)
         {
             int mid=(low+high)/2;
