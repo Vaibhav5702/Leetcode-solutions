@@ -14,35 +14,28 @@
  * }
  */
 class Solution {
-    int idx;
     public TreeNode bstFromPreorder(int[] preorder) {
-        idx=0;
-        int inorder[]=preorder.clone();
-        Arrays.sort(inorder);
-        return createTree(0,inorder.length-1,preorder,inorder);
-    }
-    public TreeNode createTree(int l,int h, int[] pre,int[] in)
-    {
-        if(l>h)
-            return null;
-        TreeNode root=new TreeNode(pre[idx]);
-        int index=search(in,pre[idx++],l,h);
-        root.left=createTree(l,index-1,pre,in);
-        root.right=createTree(index+1,h,pre,in);
+        TreeNode root=new TreeNode(preorder[0]);
+        for(int i=1;i<preorder.length;i++)
+        {
+            addNode(preorder[i],root);
+        }
         return root;
     }
-    public int search(int arr[],int val,int low, int high)
+    public TreeNode addNode(int val,TreeNode root)
     {
-        while(low<=high)
+        if(root==null)
         {
-            int mid=(low+high)/2;
-            if(arr[mid]==val)
-                return mid;
-            else if(arr[mid]<val)
-                low=mid+1;
-            else
-                high=mid-1;
+            return new TreeNode(val);
         }
-        return -1;
+        if(val<root.val)
+        {
+            root.left=addNode(val,root.left);
+        }
+        else
+        {
+            root.right=addNode(val,root.right);
+        }
+        return root;
     }
 }
