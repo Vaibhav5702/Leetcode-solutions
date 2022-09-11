@@ -4,7 +4,7 @@ class Solution {
         int or=nums[0],left=0;
         for(int i=1;i<nums.length;i++)
         {
-            while(left<i&&(nums[i]&or)!=0)
+            while((nums[i]&or)!=0)
             {
                 or^=nums[left];
                 left++;
